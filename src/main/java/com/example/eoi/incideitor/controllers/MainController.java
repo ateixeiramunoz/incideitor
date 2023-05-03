@@ -29,52 +29,6 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/usuarios")
-    public String showUsuarios(Model model)
-    {
-        Optional<Usuario> usuario = userService.getUserByID(1);
-        if(usuario.isPresent())
-        {
-            model.addAttribute("nombre",usuario.get().getNombre());
-        }
-        else
-        {
-            model.addAttribute("nombre","Sin nombre");
-        }
 
-        //busco todos los usuarios y los añado al modelo
-        model.addAttribute("usuarios",userService.findAll());
-
-        return "usuarios";
-    }
-
-
-
-    @GetMapping("/usuarios/delete/{id}")
-    public String deleteUser(@PathVariable Integer id)
-    {
-            usuarioRepository.deleteById(id);
-            return  "redirect:/usuarios";
-    }
-
-
-    @GetMapping("/usuarios/edit/{id}")
-    public String deleteUser(@PathVariable Integer id, Model model)
-    {
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
-        if(usuario.isPresent())
-        {
-            model.addAttribute("usuario",usuario.get());
-        }
-        return  "userForm";
-    }
-
-
-    @PostMapping("/usuarios/save")
-    public String saveUser(Usuario usuario)
-    {
-        usuarioRepository.save(usuario);
-        return  "redirect:/usuarios";
-    }
 
 }
